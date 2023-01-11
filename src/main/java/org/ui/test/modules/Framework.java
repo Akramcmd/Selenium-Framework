@@ -1,6 +1,8 @@
 package org.ui.test.modules;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
+
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
@@ -34,16 +36,19 @@ public class Framework {
 		try {
 			switch (browserValue) {
 			case "chrome":
+				System.setProperty("webdriver.chrome.driver",".\\src\\test\\resources\\Drivers\\chromedriver.exe");
 				driver = new ChromeDriver();
 				testReport.log(Status.INFO, "Opened Chrome Browser");
 				takescreenShot("chrome");
 				break;
 			case "ie":
+				System.setProperty("webdriver.ie.driver",".\\src\\test\\resources\\Drivers\\IEDriverServer.exe");
 				driver = new InternetExplorerDriver();
 				testReport.log(Status.INFO, "Opened IE Browser");
 				takescreenShot("ie");
 				break;
 			case "firefox":
+				System.setProperty("webdriver.firefox.driver",".\\src\\test\\resources\\Drivers\\geckodriver.exe");
 				driver = new FirefoxDriver();
 				testReport.log(Status.INFO, "Opened FireFox Browser");
 				takescreenShot("firefox");
@@ -65,6 +70,8 @@ public class Framework {
 		try {
 			String url= dataReader.readConfigValue("url");
 			driver.get(url);
+			driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
+			driver.manage().timeouts().pageLoadTimeout(100, TimeUnit.SECONDS);
 			testReport.log(Status.INFO, "Opened Application URL :- "+url);
 			takescreenShot("app");
 		} catch (Exception e) {

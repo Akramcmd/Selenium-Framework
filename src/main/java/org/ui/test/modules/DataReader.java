@@ -11,7 +11,7 @@ public class DataReader {
 
 	public DataReader() {
 		try{
-			File file = new File(".\\src\\test\\resources\\DataSheet.xlsx");
+			File file = new File(".\\src\\test\\resources\\DataSheet\\DataSheet.xlsx");
 			this.fileName=file.getAbsolutePath();
 			FileInputStream excelFile = new FileInputStream(new File(this.fileName));
 			this.workbook = WorkbookFactory.create(excelFile);
